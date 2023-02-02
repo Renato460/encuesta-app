@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {Genero} from "../models/genero";
 import {Encuesta} from "../models/encuesta";
 
 @Injectable({
@@ -13,13 +12,11 @@ export class DataService {
   constructor(private readonly http: HttpClient) { }
 
   getGeneros():Observable<any>{
-    let respuesta = this.http.get<any>(this.url + '/generos');
-    return respuesta;
+    return this.http.get<any>(this.url + '/generos');
   }
 
   setEncuesta(encuesta:Encuesta):Observable<any>{
     console.log(encuesta)
-    let respuesta = this.http.post<any>(this.url + '/save', encuesta);
-    return respuesta;
+    return this.http.post<any>(this.url + '/save', encuesta);
   }
 }

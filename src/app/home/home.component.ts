@@ -10,12 +10,13 @@ import {Encuesta} from "../models/encuesta";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
-  encuestaForm!: FormGroup;
 
+  encuestaForm!: FormGroup;
   generos: Genero[] = [];
 
   constructor(private readonly fb: FormBuilder,
               private readonly dataService : DataService) {  }
+
   ngOnInit() {
     this.encuestaForm = this.initForm();
     this.getGeneros();
@@ -28,7 +29,6 @@ export class HomeComponent implements OnInit{
         console.log(this.generos);
       }
     );
-
   }
 
   onSubmit(){

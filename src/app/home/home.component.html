@@ -1,14 +1,16 @@
-<div>
+<div class="container">
   <form (ngSubmit)="onSubmit()" [formGroup]="encuestaForm">
 
     <div class="mb-3">
       <label for="mail" class="form-label">Email address</label>
       <input formControlName = "mail" type="email" class="form-control" aria-describedby="emailHelp" id="mail" required>
-      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+      <div *ngIf = "encuestaForm.get('mail')?.touched && encuestaForm.get('mail')?.errors?.['required']"
+           >Este campo es requerido</div>
     </div>
 
     <div class="mb-3">
-      <select formControlName = "generoId" class="form-select" multiple aria-label="multiple select example" id="generoId" >
+      <select formControlName = "generoId" class="form-select" aria-label="Default select" id="generoId" >
+        <option>Abre para elegir tu opción</option>
         <option value="{{genero.genero_id}}" *ngFor="let genero of generos">{{genero.genero}}</option>
       </select>
     </div>
