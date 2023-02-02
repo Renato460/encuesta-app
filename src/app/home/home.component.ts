@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DataService} from "../services/data.service";
 import {Genero} from "../models/genero";
+import {Encuesta} from "../models/encuesta";
 
 @Component({
   selector: 'app-home',
@@ -23,21 +24,38 @@ export class HomeComponent implements OnInit{
   getGeneros(){
     this.dataService.getGeneros().subscribe(
       generos => {
-        console.log(generos);
         this.generos = [...generos.respuesta];
+        console.log(this.generos);
       }
     );
 
   }
 
   onSubmit(){
-    console.log(this.encuestaForm.value)
+    const generoForm:Genero = this.generos.find(
+            genero =>
+              genero.genero_id === Number(this.encuestaForm.value.generoId)
+            ) ?? {} as Genero;
+
+    const encuesta:Encuesta = new Encuesta(
+            this.encuestaForm.value.mail,
+            generoForm);
+    
+    console.log(encuesta)
+
+    this.dataService.setEncuesta(encuesta).subscribe(
+            respuesta =>{
+              console.log(respuesta);
+            }
+    );
+
+    console.log(generoForm)
   }
 
   initForm(): FormGroup{
     return this.fb.group({
       mail: ['', [Validators.required, Validators.email]],
-      genero: ['',[Validators.required]]
+      generoId: [0,[Validators.required]]
     })
   }
 }
