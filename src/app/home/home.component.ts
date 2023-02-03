@@ -1,61 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {DataService} from "../services/data.service";
-import {Genero} from "../models/genero";
-import {Encuesta} from "../models/encuesta";
+import {Component} from '@angular/core';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent {
 
-  encuestaForm!: FormGroup;
-  generos: Genero[] = [];
-
-  constructor(private readonly fb: FormBuilder,
-              private readonly dataService : DataService) {  }
-
-  ngOnInit() {
-    this.encuestaForm = this.initForm();
-    this.getGeneros();
-  }
-
-  getGeneros(){
-    this.dataService.getGeneros().subscribe(
-      generos => {
-        this.generos = [...generos.respuesta];
-        console.log(this.generos);
-      }
-    );
-  }
-
-  onSubmit(){
-    const generoForm:Genero = this.generos.find(
-            genero =>
-              genero.genero_id === Number(this.encuestaForm.value.generoId)
-            ) ?? {} as Genero;
-
-    const encuesta:Encuesta = new Encuesta(
-            this.encuestaForm.value.mail,
-            generoForm);
-    
-    console.log(encuesta)
-
-    this.dataService.setEncuesta(encuesta).subscribe(
-            respuesta =>{
-              console.log(respuesta);
-            }
-    );
-
-    console.log(generoForm)
-  }
-
-  initForm(): FormGroup{
-    return this.fb.group({
-      mail: ['', [Validators.required, Validators.email]],
-      generoId: [0,[Validators.required]]
-    })
+  mail:string = '';
+  ishidden:boolean = false;
+  envioExitoso(mail:string):void{
+    this.mail = mail;
+    this.ishidden = true;
+    console.log(mail,this.ishidden)
   }
 }

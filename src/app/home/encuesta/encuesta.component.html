@@ -1,0 +1,30 @@
+<div class="align-self-center">
+  <form (ngSubmit)="onSubmit()" [formGroup]="encuestaForm">
+
+    <div class=" mb-3">
+      <div class="input-group">
+        <input formControlName="mail" placeholder="Email" type="email" class="form-control" aria-describedby="emailHelp" id="mail" required>
+        <span class="input-group-text">@ejemplo.cl</span>
+      </div>
+      <div *ngIf = "encuestaForm.get('mail')?.touched && encuestaForm.get('mail')?.errors?.['required']"
+      >Este campo es requerido</div>
+      <div class="invalid-feedback" *ngIf = "encuestaForm.get('mail')?.touched && encuestaForm.get('mail')?.errors?.['email']"
+      >Este campo debe tener la forma correcta</div>
+    </div>
+
+
+    <div class="mb-3">
+      <div class="input-group">
+        <label class="input-group-text" for="generoId">Opciones</label>
+        <select formControlName = "generoId" class="form-select" aria-label="Default select" id="generoId" required>
+          <option>Abre para elegir tu opción</option>
+          <option value="{{genero.genero_id}}" *ngFor="let genero of generos">{{genero.genero}}</option>
+        </select>
+      </div>
+      <div *ngIf = "encuestaForm.get('generoId')?.touched && encuestaForm.get('generoId')?.errors?.['required']"
+      >Este campo es requerido</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="encuestaForm.invalid" >Enviar</button>
+  </form>
+</div>
