@@ -1,16 +1,25 @@
-<table class="table table-striped table-responsive-sm position-absolute top-50 start-50 translate-middle">
-  <thead>
-  <tr>
-    <th scope="col">Puesto</th>
-    <th scope="col">Género</th>
-    <th scope="col">Votos</th>
-  </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let encuesta of encuestaTablas">
-      <th scope="row">{{encuestaTablas.indexOf(encuesta)+1}}</th>
-      <td>{{encuesta.genero.genero}}</td>
-      <td>{{encuesta.total}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container ">
+  <div class="row m-0 vh-100  align-items-center justify-content-center">
+    <div class="col-auto bg-light p-5">
+      <h3 class="col-auto">Resultados hasta ahora</h3>
+      <h6 class="col-auto">{{mail}}</h6>
+      <table class="mx-auto table table-striped table-responsive-sm">
+        <caption>Resultados votación géneros musicales</caption>
+        <thead>
+        <tr>
+          <th scope="col">Puesto</th>
+          <th scope="col">Género</th>
+          <th scope="col">Votos</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let encuesta of encuestaTablas">
+          <th scope="row">{{encuestaTablas.indexOf(encuesta)+1}}</th>
+          <td>{{encuesta.genero.generoName}}</td>
+          <td>{{encuesta.total}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

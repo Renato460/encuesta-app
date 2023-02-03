@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
+import {AppComponent} from "../app.component";
+import {EncuestaComponent} from "./encuesta/encuesta.component";
+import {ResultadoComponent} from "./resultado/resultado.component";
+import {HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -8,7 +13,8 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      imports:[FormsModule, HttpClientModule, ReactiveFormsModule],
+      declarations: [ HomeComponent, EncuestaComponent, ResultadoComponent ]
     })
     .compileComponents();
 

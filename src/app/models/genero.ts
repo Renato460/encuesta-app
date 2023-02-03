@@ -1,9 +1,9 @@
 export class Genero{
-  genero_id?: number;
-  genero?: string;
+  generoId?: number;
+  generoName?: string;
 
-  constructor(genero_id: number, genero: string) {
-      this.genero_id = genero_id;
-      this.genero = genero;
+  constructor(generoId: number, generoName: string) {
+      this.generoId = generoId;
+      this.generoName = generoName;
   }
 }

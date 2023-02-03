@@ -1,5 +1,4 @@
 <div class="container-sm text-center vh-100">
-  <app-encuesta *ngIf="!ishidden" (newEvioEvent)="envioExitoso($event)"
-                class="row row-cols-auto justify-content-md-center vh-100" ></app-encuesta>
-  <app-resultado class="row position-relative vh-100" *ngIf="ishidden"></app-resultado>
+  <app-encuesta *ngIf="!ishidden" (newEvioEvent)="envioExitoso($event)"></app-encuesta>
+  <app-resultado [mail]="mail" *ngIf="ishidden"></app-resultado>
 </div>

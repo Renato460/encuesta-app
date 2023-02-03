@@ -13,6 +13,8 @@ export class EncuestaComponent implements OnInit{
   encuestaForm!: FormGroup;
   generos: Genero[] = [];
 
+  emailPatron: any = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+
   @Output() newEvioEvent = new EventEmitter<string>();
 
   constructor(private readonly fb: FormBuilder,
@@ -26,33 +28,36 @@ export class EncuestaComponent implements OnInit{
     this.dataService.getGeneros().subscribe(
       generos => {
         this.generos = [...generos.respuesta];
-        console.log(this.generos);
       }
     );
   }
 
   onSubmit(){
-    const generoForm:Genero = this.generos.find(
-      genero =>
-        genero.genero_id === Number(this.encuestaForm.value.generoId)
-    ) ?? {} as Genero;
+    if(this.encuestaForm.valid){
+      const generoForm:Genero = this.generos.find(
+        genero =>
+          genero.generoId === Number(this.encuestaForm.value.generoId)
+      ) ?? {} as Genero;
 
-    const encuesta:Encuesta = new Encuesta(
-      this.encuestaForm.value.mail,
-      generoForm);
-    console.log(encuesta)
-    this.dataService.setEncuesta(encuesta).subscribe(
-      respuesta =>{
-        this.newEvioEvent.emit(encuesta.mail);
-        console.log(respuesta);
-      }
-    );
+      const encuesta:Encuesta = new Encuesta(
+        this.encuestaForm.value.mail,
+        generoForm);
+      this.dataService.setEncuesta(encuesta).subscribe(
+        respuesta =>{
+          this.newEvioEvent.emit(encuesta.mail);
+        }
+      );
+    }
   }
 
   initForm(): FormGroup{
     return this.fb.group({
-      mail: [undefined, [Validators.required, Validators.email]],
+      mail: [undefined, [Validators.required, Validators.email, Validators.minLength(5),
+        Validators.pattern(this.emailPatron)]],
       generoId: [undefined,[Validators.required]]
     })
   }
+
+  get mail(){ return this.encuestaForm.get('mail');}
+  get generoId(){return this.encuestaForm.get('generoId');}
 }

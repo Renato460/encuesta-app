@@ -13,6 +13,5 @@ export class HomeComponent {
   envioExitoso(mail:string):void{
     this.mail = mail;
     this.ishidden = true;
-    console.log(mail,this.ishidden)
   }
 }

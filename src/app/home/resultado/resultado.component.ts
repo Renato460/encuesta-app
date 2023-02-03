@@ -1,9 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Encuesta} from "../../models/encuesta";
-import {FormBuilder} from "@angular/forms";
 import {DataService} from "../../services/data.service";
-import {Genero} from "../../models/genero";
-import {of} from "rxjs";
 
 @Component({
   selector: 'app-resultado',
@@ -11,6 +8,8 @@ import {of} from "rxjs";
   styleUrls: ['./resultado.component.css']
 })
 export class ResultadoComponent implements OnInit{
+
+  @Input() mail:string = '';
 
   encuestas: Encuesta[] = [];
   encuestaTablas: any[] =[];
@@ -31,10 +30,9 @@ export class ResultadoComponent implements OnInit{
   }
 
   encuestasTotales():void{
-    console.log(this.encuestas);
 
     this.encuestaTablas = this.encuestas.reduce((resultado: any[], encuesta: Encuesta)=>{
-      const hayTotal = resultado.find((a:any)=> a.genero.genero_id === encuesta.genero?.genero_id);
+      const hayTotal = resultado.find((a:any)=> a.genero.generoId === encuesta.genero?.generoId);
       if (!hayTotal){
         resultado.push({total:1, genero:encuesta.genero})
       }else {

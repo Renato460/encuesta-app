@@ -19,7 +19,6 @@ export class DataService {
     return this.http.get<any>(this.url+'/all');
   }
   setEncuesta(encuesta:Encuesta):Observable<any>{
-    console.log(encuesta)
     return this.http.post<any>(this.url + '/save', encuesta);
   }
 }
